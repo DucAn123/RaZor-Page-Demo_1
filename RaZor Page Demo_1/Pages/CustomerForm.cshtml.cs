@@ -16,7 +16,7 @@ namespace RazorPagesLabA1.Pages
             if (ModelState.IsValid)
             {
                 Message = "Information is OK";
-                ModelState.Clear();
+                ModelState.Clear(); // reset fields
             }
             else
             {

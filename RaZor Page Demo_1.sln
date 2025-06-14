@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36121.58 d17.14
+VisualStudioVersion = 17.14.36121.58
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaZor Page Lab_1", "RaZor Page Demo_1\RaZor Page Lab_1.csproj", "{7946D6BF-C952-4AE8-AE92-25535354DC6B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaZor Page LabA1", "RaZor Page Demo_1\RaZor Page LabA1.csproj", "{7946D6BF-C952-4AE8-AE92-25535354DC6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

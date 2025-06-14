@@ -1,27 +1,41 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace RazorPagesLabA1.Binding
 {
     public class CheckNameBinding : IModelBinder
     {
-        public Task BindModelAsync(ModelBindingContext context)
+        private readonly ILogger<CheckNameBinding> _logger;
+
+        public CheckNameBinding(ILogger<CheckNameBinding> logger)
         {
-            if (context == null) throw new ArgumentNullException(nameof(context));
+            _logger = logger;
+        }
 
-            var valueResult = context.ValueProvider.GetValue(context.ModelName);
-            if (valueResult == ValueProviderResult.None) return Task.CompletedTask;
+        public Task BindModelAsync(ModelBindingContext bindingContext)
+        {
+            if (bindingContext == null)
+                throw new ArgumentNullException(nameof(bindingContext));
 
-            var value = valueResult.FirstValue?.ToUpper();
+            string modelName = bindingContext.ModelName;
+            ValueProviderResult valueProviderResult = bindingContext.ValueProvider.GetValue(modelName);
+
+            if (valueProviderResult == ValueProviderResult.None)
+                return Task.CompletedTask;
+
+            bindingContext.ModelState.SetModelValue(modelName, valueProviderResult);
+
+            string value = valueProviderResult.FirstValue;
             if (string.IsNullOrEmpty(value)) return Task.CompletedTask;
 
-            if (value.Contains("XXX"))
+            var s = value.ToUpper();
+            if (s.Contains("XXX"))
             {
-                context.ModelState.TryAddModelError(context.ModelName, "Cannot contain XXX");
+                bindingContext.ModelState.TryAddModelError(modelName, "Cannot contain this pattern xxx.");
                 return Task.CompletedTask;
             }
 
-            context.Result = ModelBindingResult.Success(value.Trim());
+            bindingContext.Result = ModelBindingResult.Success(s.Trim());
             return Task.CompletedTask;
         }
     }

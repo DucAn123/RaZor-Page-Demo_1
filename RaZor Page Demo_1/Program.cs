@@ -1,15 +1,23 @@
+﻿using RazorPagesLabA1.Binding;
+using RazorPagesLabA1.Validation;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// 🔹 Add Razor Pages
 builder.Services.AddRazorPages();
+
+// 🔹 (Tuỳ chọn) Nếu có dịch vụ riêng thì đăng ký ở đây
+// builder.Services.AddTransient<ICarService, CarService>();
+
+// 🔹 Cho phép upload file và sử dụng model binding custom nếu có
+builder.Services.AddSingleton<CheckNameBinding>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// 🔹 Middleware cấu hình pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -20,6 +28,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+// 🔹 Map Razor Pages
 app.MapRazorPages();
 
 app.Run();
